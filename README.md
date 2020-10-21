@@ -6,12 +6,12 @@ This repository contains the code for the Neurips 2020 paper "Efficient Explorat
 " (stay tuned for pre-print). In this work, we propse a novel IRL algorithm called BO-IRL that uses Bayesian Optimzation (BO) to correctly characterize the reward function space.
 We introduce a new projection operation called <img src="https://latex.codecogs.com/gif.latex?\rho\text{-projection}" /> defined as follows:
 <p align="center">
-  <img src="./imgs/rhoproj_eqn.png" width="250">
+  <img src="./imgs/rhoproj_eqn2.png" width="500">
 </p>
 
 which maps rewards functions to a new space where 1) policy invariant reward functions are mapped to a single point 2) reward functions with similar negative log likelihood (NLL) are mapped close to each other. This is illustrated below:
 <p align="center">
-  <img src="./imgs/rhoproj_action" width="250">
+  <img src="./imgs/rhoproj_action.png" width="500">
 </p>
 
 
