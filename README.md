@@ -139,3 +139,15 @@ Results:
 Instead of calculating the ESOR for each iteration, we evaluate the performance of BO-IRL in the Fetch-Reach environment using the success rate (SR) metric. Success rate indicates the number of times the robot's gripper touched the target in a given number of episodes. We compare the success rate of the agent trained using the learned reward function using various kernels. AIRL and GCL were not tested due to incompatabilities with the libraries.
 
 The steps involved are identical to the 3 steps mentioned above (```envref``` is set to ```fetch```). However, instead of generating the ESOR plot, a SR plot will be placed in ```basedir``` as ```SR_fetch.png```
+
+
+
+### Questions?
+For any questions regarding the code or the paper, please email me at [sreejith@comp.nus.nus.edu.sg](mailto:sreejith@comp.nus.edu.sg).
+
+
+#### Acknowledgements
+Parts of the code/network structures in this repository have been adapted from the following repos:
+
+* [justinjfu/inverse_rl](https://github.com/justinjfu/inverse_rl)
+* [uidilr/bayesian_irl](https://github.com/uidilr/bayesian_irl)
