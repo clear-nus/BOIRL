@@ -16,12 +16,12 @@ which maps rewards functions to a new space where 1) policy invariant reward fun
 
 
 ## Dependencies
-Full dependencies can be found in the "requirements.yml" file. When using Point mass maze and Fetch-Reach environemtns, you will be required to install the pyMujoco libraries as well.
+Full dependencies can be found in the "requirements.yml" file. When using Point mass maze and Fetch-Reach environments, you will be required to install the pyMujoco libraries as well.
 
 ## Setting up the environment
 We will refer to the root directory of this repository as "basedir". 
 #### Setting up OpenAI Gym
-In our expertiments, we have modified the Fetch-Reach environment in OpenAI Gym to take in reward function parameters as inputs. This is needed when evaluating a particular reward function. Similarly, we have also added the Point-Mass Maze environment as a standard OpenAI environment. As a result, to run the codes in this package successfully, you will need to uninstall any standard OpenAI gym present in your python virtual environment (or create a new virtual/conda environment) and install it from our repository. You can follow the steps below:
+In our expertiments, we have modified OpenAI Gym to change the Fetch-Reach environment, and add the Point-Mass Maze environment as a standard OpenAI environment. Therefore, you will need to uninstall any standard OpenAI gym present in your python virtual environment (or create a new virtual/conda environment) and install it from our repository. You can follow the steps below:
 ```
 cd gym_boirl
 pip install -e .
