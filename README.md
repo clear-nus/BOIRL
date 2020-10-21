@@ -131,23 +131,13 @@ python birl_vborlange.py
 ```
 The results will be placed in ```<basedir>/ResultDir/<envref>/birl/```. **However, we since this evaluation can be time consuming, we have already placed our previous results in the corresponding folders for your inspection without having to run the code.**
 
-## Number of iterations to reach expert's ESOR.
-Our paper compares BO-IRL (with &#961;-RBF, RBF and Matern kernels) to GCL and AIRL in it's ability to reach expert's Expected Sum of Rewards (ESOR) faster in all environments except Fetch-Reach and Real Borlange. The following section explains how to generate these results. In addition to reporting the number of iterations, we also plot the ESOR and NLL for each algorithm across the training iterations. Please note that ESOR calculation is not valid for Real Borlange as we do not have access to a ground truth reward function. So running the following codes will only result in the NLL plot.
-
-1. Run the corresponding IRL algorithms for the given environment for a specified budget.
-```
-python runalgorithm.py -e <envref> -a <algoref> -b <budget> -n <number of trials>
-```
-
-Here ```<algoref>``` can be any algorithm except ```birl```. Run this code once for each algorithm that you want to examine.
-
-2.Calculate the ESOR and NLL using the output of the specified algorithm across iterations. (Warning: This might be time consuming for environments other than the gridworld).
+#### Calculate ESOR and likelihood
 ```
 python evaluatealgorithm.py -e <envref> -a <algoref>
 ```
 Run this code once for each algorithm that you want to examine.
 
-3.Plot the results
+#### Tabulate ESOR and plot ESOR across iterations
 ```
 python plotalgorithm.py -e <envref> -a <algoref> <algoref> <algoref>..  -p <Percentage of expert's ESOR to match> -n <Number of iterations to plot>
 ```
@@ -158,8 +148,7 @@ Results:
 * NLL plot will be saved in ```basedir``` as ```NLL_<envref>.png```
 * Number of iterations for each algorithm (mean and std) to reach the given percentage of Expert's ESOR will be printed in console.
 
-
-## Success Rate for Fetch-Reach
+#### Success Rate for Fetch-Reach
 Instead of calculating the ESOR for each iteration, we evaluate the performance of BO-IRL in the Fetch-Reach environment using the success rate (SR) metric. Success rate indicates the number of times the robot's gripper touched the target in a given number of episodes. We compare the success rate of the agent trained using the learned reward function using various kernels. AIRL and GCL were not tested due to incompatabilities with the libraries.
 
 The steps involved are identical to the 3 steps mentioned above (```envref``` is set to ```fetch```). However, instead of generating the ESOR plot, a SR plot will be placed in ```basedir``` as ```SR_fetch.png```
