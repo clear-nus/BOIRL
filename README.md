@@ -111,13 +111,6 @@ To run any of these algorithms against an environment, run:
 ```
 python runalgorithm.py -e <envref> -a <algoref> -b <budget> -n <number of trials>
 ```
-
-GP posterior mean and std can be visualized for environments whose reward function space has dimension=2. One exception to this rule is Virtual Borlange which plots the GP Posterior by setting the third dimention to -1. Therefore, valid ```<envref>``` values for visualizing the GP posterior include ```gridworld2d```, ```maze```, ```fetch``` and ```vborlange```. ```<algoref>``` should be one of the BO-IRL methods, i.e. ```rhorhf```, ```rbf``` or ```matern```. ```<budget>``` is an integer that corresponds to the total budget (or total number of iterations) for optimization. By default, the BO is initialized with 1 additional sample at the beginning of the iteration (so total samples after optimization = budget + 1). ```<number of trials>``` is an integer that specifies how many times to run this experiment.
-
-For instance, to generate the posterior mean and std for Gridworld2d using BO-IRL with &#961;-RBF kernel with a budget of 30 iterations and repeated 3 times, we can run the following:
-```
-python runalgorithm.py -e gridworld2d -a rhorbf -b 2 -n 3
-```
 Once the code is executed, plots of the posterior mean and std can be found in ```<basedir>/ResultDir/<envref>/<algoref>/``` under the names ```PosteriorMean<trial>.png``` and ```PosteriorStd<trial>.png``` respectively.
 
 As shown in the paper (Fig. 5), we can compare the results of the discrete environments, namely Gridworld2d and Virtual Borlange against BIRL. To do so, run the following commands:
@@ -129,7 +122,7 @@ python birl_gridworld.py
 ```
 python birl_vborlange.py
 ```
-The results will be placed in ```<basedir>/ResultDir/<envref>/birl/```. **However, we since this evaluation can be time consuming, we have already placed our previous results in the corresponding folders for your inspection without having to run the code.**
+The results will be placed in ```<basedir>/ResultDir/<envref>/birl/```. **However, since this evaluation can be time consuming, we have already placed our previous results in the corresponding folders for your inspection without having to run the code.**
 
 ###### Calculate ESOR and likelihood
 ```
