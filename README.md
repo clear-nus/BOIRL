@@ -1,5 +1,53 @@
-# BO-IRL Code Submission
-This document contains instructions on how to repeat the experiments presented in our paper titled "Efficient Exploration of Reward Functions in Inverse Reinforcement Learning via Bayesian Optimization". BO-IRL is a novel IRL algorithm that uses Bayesian Optimization for efficient exploration of the reward space to identify multiple regions of high likelihood w.r.t to the expert demonstrations.
+# BO-IRL
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Venue:NeurIPS 2020](https://img.shields.io/badge/Venue-Neurips%202020-blue)
+
+This repository contains the code for the Neurips 2020 paper "Efficient Exploration of Reward Functions in Inverse Reinforcement Learning via Bayesian Optimization
+" (stay tuned for pre-print). In this work, we propse a novel IRL algorithm called BO-IRL that uses Bayesian Optimzation (BO) to correctly characterize the reward function space.
+We introduce a new projection operation called <img src="https://latex.codecogs.com/gif.latex?\rho\text{-projection}" /> defined as follows:
+<p align="center">
+  <img src="./imgs/rhoproj_eqn.png" width="250">
+</p>
+
+which maps rewards functions to a new space where 1) policy invariant reward functions are mapped to a single point 2) reward functions with similar negative log likelihood (NLL) are mapped close to each other. This is illustrated below:
+<p align="center">
+  <img src="./imgs/rhoproj_eqn.png" width="250">
+</p>
+
+
+## Dependencies
+Full dependencies can be found in the "requirements.yml" file. When using Point mass maze and Fetch-Reach environemtns, you will be required to install the pyMujoco libraries as well.
+
+## Setting up the environment
+We will refer to the root directory of this repository as "basedir". 
+#### Setting up OpenAI Gym
+In our expertiments, we have modified the Fetch-Reach environment in OpenAI Gym to take in reward function parameters as inputs. This is needed when evaluating a particular reward function. Similarly, we have also added the Point-Mass Maze environment as a standard OpenAI environment. As a result, to run the codes in this package successfully, you will need to uninstall any standard OpenAI gym present in your python virtual environment (or create a new virtual/conda environment) and install it from our repository. You can follow the steps below:
+```
+cd gym_boirl
+pip install -e .
+cd ..
+```
+You will need to have Mujoco support for Open AI gym. You can follow the instructions from this [page](https://github.com/openai/mujoco-py) on how to setup mujoco for use with OpenAI Gym.
+
+#### For GCL and IRL
+We have used the implementation of GCL and AIRL found at this [repository](https://github.com/justinjfu/inverse_rl). Make sure that the necessary prerequisites are satisfied. This repository requires the environment to be an OpenAI Gym. Therefore, we have provided an OpenAI Gym version of Gridworld3d, Virtual Borlange and Real Borlange. To activate them, follow the steps below:
+
+###### For Gridworld3d:
+```
+cd gym-sigmoid
+pip install -e .
+cd ..
+```
+###### For Virtual Borlange:
+Open "swedenworld_env.py" inside gym-sweden/gym_sweden/envs in a text editor. Change the variable self.basedir to point to the location of your basedir using it's absolute path. Save the file
+```
+cd gym-sweden
+pip install -e .
+cd ..
+```
+#### wait
+
+instructions on how to repeat the experiments presented in our paper titled "Efficient Exploration of Reward Functions in Inverse Reinforcement Learning via Bayesian Optimization". BO-IRL is a novel IRL algorithm that uses Bayesian Optimization for efficient exploration of the reward space to identify multiple regions of high likelihood w.r.t to the expert demonstrations.
 
 The actual code repository is uploaded in a zip file titled "BOIRLCode.zip". It contains the implementation of BO-IRL with the novel &#961;-RBF kernel as well as standard RBF kernel and Matern Kernel.
 We have also included code to test our results against
