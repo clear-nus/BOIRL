@@ -69,8 +69,8 @@ While running code, you can refer to these environments using the following ```<
 | fetch                       | Fetch-Reach                       |
 
 
-## Evaluating Existing Results Without Retraining
-#### For Table 1:
+#### Evaluating Existing Results Without Retraining
+###### For Table 1:
 Table 1 in our paper presents the success rate and number of iterations required for each algorithm to catch up to the expert's ESOR. For instance, our results for Gridworld environment are as follows:
 To generate this table from existing results, run the following:
 ```
@@ -78,15 +78,15 @@ sh runTable1.sh
 ```
 This will print the results corresponding to Table 1 (there might be slight differences in the values due to change in expert demonstrations between experiments). It will also plot the ESOR and NLL progress for the algorithms being evaluated and place them on the ```basedir```. For Fetch-Reach environment, the success rate plot is generated instead of ESOR.
 
-#### For Figure 5 and 6:
+###### For Figure 5 and 6:
 To generate the plots used in Figures 5 and 6, run the following:
 ```
 python posterior_plot.py
 ```
 This takes in selected results from ```PosteriorPlotsFromPaper/Data``` and plots the corresponding figures in ```PosteriorPlotsFromPaper/Plots```.
 
-## Training your model
-#### Trajectory generation
+#### Training your model
+###### Trajectory generation
 Before running any IRL algorithms, you need to collect expert trajectories (and other metadata) for the environment of interest. This step needs to be performed only once per environment as the same set of expert trajectories will be reused by all IRL algorithms. To collect expert trajectories on a given environment, run the following by replacing ```<envref>``` with the correct reference to the environment of interest (as mentioned in the table above). **This step is optional since the expert trajectories are provided . Also, this does not apply to Point Mass Maze and Fetch-Reach environments**
 **Warning: Do not delete the existing Data folder**
 ```
@@ -95,7 +95,7 @@ python datacollect.py -e <envref>
 The trajectories will be saved to the ```Data``` folder under the basedir.
 
 
-#### Run algorithms
+###### Run algorithms
 The following algorithms are available:
 
 | **algoref**                 | **Algorithm Name**                |
@@ -121,23 +121,23 @@ python runalgorithm.py -e gridworld2d -a rhorbf -b 2 -n 3
 Once the code is executed, plots of the posterior mean and std can be found in ```<basedir>/ResultDir/<envref>/<algoref>/``` under the names ```PosteriorMean<trial>.png``` and ```PosteriorStd<trial>.png``` respectively.
 
 As shown in the paper (Fig. 5), we can compare the results of the discrete environments, namely Gridworld2d and Virtual Borlange against BIRL. To do so, run the following commands:
-###### For Gridworld2d:
+######## For Gridworld2d:
 ```
 python birl_gridworld.py
 ```
-###### For Virtual Borlange:
+######## For Virtual Borlange:
 ```
 python birl_vborlange.py
 ```
 The results will be placed in ```<basedir>/ResultDir/<envref>/birl/```. **However, we since this evaluation can be time consuming, we have already placed our previous results in the corresponding folders for your inspection without having to run the code.**
 
-#### Calculate ESOR and likelihood
+###### Calculate ESOR and likelihood
 ```
 python evaluatealgorithm.py -e <envref> -a <algoref>
 ```
 Run this code once for each algorithm that you want to examine.
 
-#### Tabulate ESOR and plot ESOR across iterations
+###### Tabulate ESOR and plot ESOR across iterations
 ```
 python plotalgorithm.py -e <envref> -a <algoref> <algoref> <algoref>..  -p <Percentage of expert's ESOR to match> -n <Number of iterations to plot>
 ```
@@ -148,7 +148,7 @@ Results:
 * NLL plot will be saved in ```basedir``` as ```NLL_<envref>.png```
 * Number of iterations for each algorithm (mean and std) to reach the given percentage of Expert's ESOR will be printed in console.
 
-#### Success Rate for Fetch-Reach
+###### Success Rate for Fetch-Reach
 Instead of calculating the ESOR for each iteration, we evaluate the performance of BO-IRL in the Fetch-Reach environment using the success rate (SR) metric. Success rate indicates the number of times the robot's gripper touched the target in a given number of episodes. We compare the success rate of the agent trained using the learned reward function using various kernels. AIRL and GCL were not tested due to incompatabilities with the libraries.
 
 The steps involved are identical to the 3 steps mentioned above (```envref``` is set to ```fetch```). However, instead of generating the ESOR plot, a SR plot will be placed in ```basedir``` as ```SR_fetch.png```
