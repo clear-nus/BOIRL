@@ -1,0 +1,22 @@
+
+fig = plt.figure(1, figsize=(16.75, 13.5), dpi=80)
+plt.contourf(X1, X2, m.reshape(200, 200), 100, cmap="viridis", vmin=mylims[0], vmax=mylims[1])
+
+#m = plt.cm.ScalarMappable(cmap=cm.viridis)
+#m.set_array(m)
+#m.set_clim(mylims[0], mylims[1])
+#plt.colorbar(m, boundaries=np.linspace(mylims[0], mylims[1], 3))
+cbar = plt.colorbar(ticks=[mylims[0], mylims[1], (mylims[0] + mylims[1]) / 2.], format='%.1f')
+# cbar = plt.colorbar(ticks=[np.amax(m), np.amin(m), (np.amax(m) + np.amin(m)) / 2.], format='%.1f')
+cbar.ax.tick_params(labelsize=30)
+cbar.set_label(r"$L_{IRL}}$", fontdict=fontlabs, labelpad=30)
+plt.xlabel("Steepness, " + r"$\theta_0$", fontdict=fontlabs, labelpad=20)
+plt.ylabel("Midpoint, " + r"$\theta_1$", fontdict=fontlabs, labelpad=-5)
+plt.axis((-2, 2, -10, 10))
+plt.xticks((-2, 0., 2.), fontsize=30)
+plt.yticks((-10., 0., 10.), fontsize=30)
+plt.plot(Xdata[:, 0], Xdata[:, 1], 'r.', markersize=25, label=u'Observations')
+plt.scatter([1.25],[5],c="lime",s=1500,marker="*")
+plt.savefig(os.path.join(savedir, "posteriormean_%s_%d.png") % (algo, trial),
+            bbox_inches="tight")
+plt.close("all")

@@ -1,0 +1,1 @@
+from gym_sigmoid.envs.sigmoidworld_env import SigmoidWorldEnv
