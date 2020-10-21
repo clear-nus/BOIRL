@@ -11,7 +11,7 @@ We introduce a new projection operation called <img src="https://latex.codecogs.
 
 which maps rewards functions to a new space where 1) policy invariant reward functions are mapped to a single point 2) reward functions with similar negative log likelihood (NLL) are mapped close to each other. This is illustrated below:
 <p align="center">
-  <img src="./imgs/rhoproj_action.png" width="500">
+  <img src="./imgs/rhoproj_action2.png" width="500">
 </p>
 
 
