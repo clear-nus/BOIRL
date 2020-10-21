@@ -78,13 +78,6 @@ sh runTable1.sh
 ```
 This will print the results corresponding to Table 1 (there might be slight differences in the values due to change in expert demonstrations between experiments). It will also plot the ESOR and NLL progress for the algorithms being evaluated and place them on the ```basedir```. For Fetch-Reach environment, the success rate plot is generated instead of ESOR.
 
-###### For Figure 5 and 6:
-To generate the plots used in Figures 5 and 6, run the following:
-```
-python posterior_plot.py
-```
-This takes in selected results from ```PosteriorPlotsFromPaper/Data``` and plots the corresponding figures in ```PosteriorPlotsFromPaper/Plots```.
-
 #### Training your model
 ###### Trajectory generation
 Before running any IRL algorithms, you need to collect expert trajectories (and other metadata) for the environment of interest. This step needs to be performed only once per environment as the same set of expert trajectories will be reused by all IRL algorithms. To collect expert trajectories on a given environment, run the following by replacing ```<envref>``` with the correct reference to the environment of interest (as mentioned in the table above). **This step is optional since the expert trajectories are provided . Also, this does not apply to Point Mass Maze and Fetch-Reach environments**
