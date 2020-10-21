@@ -86,7 +86,7 @@ python posterior_plot.py
 This takes in selected results from ```PosteriorPlotsFromPaper/Data``` and plots the corresponding figures in ```PosteriorPlotsFromPaper/Plots```.
 
 ## Training your model
-####Trajectory generation
+#### Trajectory generation
 Before running any IRL algorithms, you need to collect expert trajectories (and other metadata) for the environment of interest. This step needs to be performed only once per environment as the same set of expert trajectories will be reused by all IRL algorithms. To collect expert trajectories on a given environment, run the following by replacing ```<envref>``` with the correct reference to the environment of interest (as mentioned in the table above). **This step is optional since the expert trajectories are provided . Also, this does not apply to Point Mass Maze and Fetch-Reach environments**
 **Warning: Do not delete the existing Data folder**
 ```
