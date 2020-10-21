@@ -114,11 +114,12 @@ python runalgorithm.py -e <envref> -a <algoref> -b <budget> -n <number of trials
 Once the code is executed, plots of the posterior mean and std can be found in ```<basedir>/ResultDir/<envref>/<algoref>/``` under the names ```PosteriorMean<trial>.png``` and ```PosteriorStd<trial>.png``` respectively.
 
 As shown in the paper (Fig. 5), we can compare the results of the discrete environments, namely Gridworld2d and Virtual Borlange against BIRL. To do so, run the following commands:
-######## For Gridworld2d:
+
+- For Gridworld2d:
 ```
 python birl_gridworld.py
 ```
-######## For Virtual Borlange:
+- For Virtual Borlange:
 ```
 python birl_vborlange.py
 ```
