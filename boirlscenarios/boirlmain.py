@@ -334,6 +334,20 @@ def algosor(algo, env, projections=None):
     boirlobj = IRLObject(algo, env, projections)
     gt_trajs = boirlobj.fullTrajectories
     gt_spos = boirlobj.fullStartpos
+    if env == constants.VIRTBORLANGE:
+        randomstart = False
+        n_testtrajs = 5000
+        if env == constants.FETCH:
+            spos = gt_trajs["observation"].shape[0]
+        else:
+            spos = gt_spos[0:5000]
+    else:
+        randomstart = False
+        if env == constants.FETCH:
+            n_testtrajs = gt_trajs["observation"].shape[0]
+        else:
+            n_testtrajs = gt_trajs.shape[0]
+        spos = gt_spos
 
     if algo == constants.AIRL or algo == constants.GCL:
         tr = 0
@@ -353,14 +367,6 @@ def algosor(algo, env, projections=None):
             nrew = allweights.shape[0]
             temp_sor = np.zeros(nrew)
             temp_lik = np.zeros(nrew)
-            if env == constants.VIRTBORLANGE:
-                randomstart = False
-                n_testtrajs = 5000
-                spos = gt_spos[0:5000]
-            else:
-                randomstart = False
-                n_testtrajs = gt_trajs.shape[0]
-                spos = None
             for wind in tqdm(np.arange(0, nrew), desc="Trial: %d" % tr):
                 w = allweights[wind]
                 # Set the current reward function in the environment
@@ -458,21 +464,6 @@ def algosor(algo, env, projections=None):
                         current_policy = None
                         if validP is not None:
                             current_policy = validP[n]
-
-                        if env == constants.VIRTBORLANGE:
-                            randomstart = False
-                            n_testtrajs = 5000
-                            if env == constants.FETCH:
-                                spos = gt_trajs["observation"].shape[0]
-                            else:
-                                spos = gt_spos[0:5000]
-                        else:
-                            randomstart = False
-                            if env == constants.FETCH:
-                                n_testtrajs = gt_trajs["observation"].shape[0]
-                            else:
-                                n_testtrajs = gt_trajs.shape[0]
-                            spos = None
 
                         # Generate trajectories using the learned reward function or learned policy if available
                         if current_policy is None:
