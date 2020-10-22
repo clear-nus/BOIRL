@@ -115,7 +115,10 @@ class AIRL(SingleTimestepIRL):
 
         # Train discriminator
         for it in TrainingIterator(self.max_itrs, heartbeat=5):
-            lr = max(1e-4,slr*(0.1**(it.itr/200)))
+            #We decayed the learning rate since the training was unstable for many of the environments.
+            #Fixed lr or 1e-3 is probably fine for Gridworld. So you can comment out the following line
+            #If training is unstable, uncomment
+            #lr = max(1e-4,slr*(0.1**(it.itr/200)))
             nobs_batch, obs_batch, nact_batch, act_batch, lprobs_batch = \
                 self.sample_batch(obs_next, obs, acts_next, acts, path_probs, batch_size=batch_size)
 
