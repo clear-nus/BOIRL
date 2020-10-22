@@ -112,6 +112,10 @@ As shown in the paper (Fig. 5), we can compare the results of the discrete envir
 ```
 python birl_gridworld.py
 ```
+- For Gridworld3d:
+```
+python birl_gridworld3d.py
+```
 - For Virtual Borlange:
 ```
 python birl_vborlange.py
