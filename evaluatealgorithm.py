@@ -3,7 +3,7 @@ import sys
 import argparse
 import boirlscenarios.constants as constants
 from boirlscenarios.boirlmain import algosor
-from boirlscenarios.calculatefetchsuccessrate import evalsuccessrate
+#from boirlscenarios.calculatefetchsuccessrate import evalsuccessrate
 np.random.seed(17870)
 
 """

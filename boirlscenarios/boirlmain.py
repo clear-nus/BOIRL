@@ -334,6 +334,7 @@ def algosor(algo, env, projections=None):
     boirlobj = IRLObject(algo, env, projections)
     gt_trajs = boirlobj.fullTrajectories
     gt_spos = boirlobj.fullStartpos
+
     if env == constants.VIRTBORLANGE:
         randomstart = False
         n_testtrajs = 5000
@@ -349,7 +350,64 @@ def algosor(algo, env, projections=None):
             n_testtrajs = gt_trajs.shape[0]
         spos = gt_spos
 
-    if algo == constants.AIRL or algo == constants.GCL:
+    if algo == constants.BIRL:
+        assert ((env == constants.GRIDWORLD2D) or (env == constants.VIRTBORLANGE) or (env == constants.GRIDWORLD3D))
+        tr = 0
+        while True:
+            # Calculate ESOR and NLL for each trial
+            # Load the weights stored during IRL training
+            if not os.path.exists(
+                    os.path.join(boirlobj.configurations.getResultDir(), "rewards%d.npy" % tr)):
+                break
+            allW = np.load(os.path.join(boirlobj.configurations.getResultDir(), "rewards%d.npy") % tr)
+            temp_sor_pw = np.zeros(allW.shape[0])
+            temp_lik_pw = np.zeros(allW.shape[0])
+
+            for n in tqdm(np.arange(allW.shape[0]), desc="Trial: " + str(tr)):
+                currentW_mode = allW[n]
+                # Set the reward function to the learned reward function
+                boirlobj.env.set_reward(currentW_mode)
+
+                # Generate trajectories using the learned reward function
+                traj, _, stochpolicy = boirlobj.env.generate_trajectories(n_trajectories=n_testtrajs,
+                                                                          random_start=randomstart,
+                                                                          startpos=spos)
+
+                # Calculate the likelihood of expert demonstration using learned reward function
+                lik_mode = boirlobj.env.get_likelihood_from_policy(gt_trajs, stochpolicy)
+
+                # Set the reward back to the ground truth reward function
+                boirlobj.env.set_reward(boirlobj.env.gtweights)
+
+                # Calculate the Expected Sum of Rewards (ESOR) for the new set of trajectories using ground truth reward
+                sor_mode, _ = boirlobj.env.evaluate_expsor(traj)
+
+                temp_sor_pw[n] = sor_mode
+                temp_lik_pw[n] = lik_mode
+            if algo_sor is None:
+                algo_sor = np.expand_dims(temp_sor_pw, axis=0)
+                algo_lik = np.expand_dims(temp_lik_pw, axis=0)
+            else:
+                ex_length = algo_sor.shape[1]
+                curr_length = temp_sor_pw.shape[0]
+                if ex_length > curr_length:
+                    temp_sor_pw = np.append(temp_sor_pw, temp_sor_pw[-1] * np.ones((ex_length - curr_length)))
+                    temp_lik_pw = np.append(temp_lik_pw, temp_lik_pw[-1] * np.ones((ex_length - curr_length)))
+                else:
+                    algo_sor = np.append(algo_sor, np.expand_dims(algo_sor[:, -1], axis=1) * np.ones(
+                        (1, curr_length - ex_length)), axis=1)
+                    algo_lik = np.append(algo_lik, np.expand_dims(algo_lik[:, -1], axis=1) * np.ones(
+                        (1, curr_length - ex_length)), axis=1)
+
+                algo_sor = np.append(algo_sor, np.expand_dims(temp_sor_pw, axis=0), axis=0)
+                algo_lik = np.append(algo_lik, np.expand_dims(temp_lik_pw, axis=0), axis=0)
+            tr += 1
+
+        # Save ESOR and NLL
+        np.save(os.path.join(boirlobj.configurations.getResultDir(), "sor.npy"), algo_sor)
+        np.save(os.path.join(boirlobj.configurations.getResultDir(), "likelihood.npy"), algo_lik)
+
+    elif algo == constants.AIRL or algo == constants.GCL:
         tr = 0
         while True:
             # load weights:

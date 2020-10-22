@@ -14,7 +14,7 @@ MATERN = "matern"
 AIRL = "airl"
 GCL = "gcl"
 BIRL = "birl"
-trainablealgos = [RHORBF, RBF, MATERN, AIRL, GCL]
+trainablealgos = [RHORBF, RBF, MATERN, AIRL, GCL, BIRL]
 allalgos = [RHORBF, RBF, MATERN, AIRL, GCL, BIRL]
 
 #OpenAIGym
@@ -43,4 +43,5 @@ LEGENDS={RHORBF: r"$\rho$" + "-RBF",
          RBF:"RBF",
          MATERN:"MATERN",
          AIRL:"AIRL",
-         GCL:"GCL"}
+         GCL:"GCL",
+         BIRL:"BIRL"}
