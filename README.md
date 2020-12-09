@@ -2,8 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Venue:NeurIPS 2020](https://img.shields.io/badge/Venue-Neurips%202020-blue)
 
-This repository contains the code for the Neurips 2020 paper "Efficient Exploration of Reward Functions in Inverse Reinforcement Learning via Bayesian Optimization
-" (stay tuned for pre-print). In this work, we propse a novel IRL algorithm called BO-IRL that uses Bayesian Optimzation (BO) to correctly characterize the reward function space.
+This repository contains the code for the Neurips 2020 paper ["Efficient Exploration of Reward Functions in Inverse Reinforcement Learning via Bayesian Optimization"] (https://arxiv.org/abs/2011.08541). In this work, we propse a novel IRL algorithm called BO-IRL that uses Bayesian Optimzation (BO) to correctly characterize the reward function space.
 We introduce a new projection operation called <img src="https://latex.codecogs.com/gif.latex?\rho\text{-projection}" /> defined as follows:
 <p align="center">
   <img src="./imgs/rhoproj_eqn2.png" width="250">
